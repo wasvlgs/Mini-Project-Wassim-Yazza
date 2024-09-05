@@ -74,8 +74,11 @@ do
                 for (int i = 0; i < counter; i++){
                     if(strcmp(book[i].titles, search) == 0){
                         printf("le livre c'est %s l auteur est %s et son prix est %i il y a %i en stock.", book[i].titles, book[i].auteurs, book[i].prixs, book[i].quantity);
+                        test = 1;
 
                     }
+                }if(test == 0){
+                    printf("Your search doesn't exict...");
                 }
                 
                 break;
@@ -119,6 +122,12 @@ do
         }
 } while (stop != 0);
 
+    
+    
+
+
+return 0;
+}
     
     
 
