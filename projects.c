@@ -39,6 +39,7 @@ do
         int stock;
         char search[100];
         int somme = 0;
+        int test = 0;
         switch (answer){
             case 1:
                 printf("Entrer le titre du livre: ");
@@ -57,9 +58,11 @@ do
                 scanf("%i", &stock);
                 book[counter].quantity = stock;
                 counter++;
+                printf("\n ========= Votre livre a été ajouté avec succès ========== \n");
                 break;
             case 2:
                 for (int i = 0; i < counter; i++){
+                    printf("\n Affichage de livre: \n");
                     printf("%i livre c'est %s l auteur est %s et son prix est %i il y a %i en stock.\n", i +1, book[i].titles, book[i].auteurs, book[i].prixs, book[i].quantity);
                 }
                 break;
@@ -87,10 +90,15 @@ do
                         book[i].prixs = 0;
                         book[i].quantity = 0;
                         counter = counter -1;
-                        
+                        test = 1;
 
                     }
                 }
+                if (test == 0)
+                {
+                    printf("Ce livre n'est pas dans le tableau");
+                }
+                
                 
                 break;
             
@@ -101,7 +109,7 @@ do
                     for (int i = 0; i < counter; i++){
                         somme = somme + book[i].quantity;
                     }
-                    printf("La somme totale de stock est: %i", somme);
+                    printf("========== La somme totale de stock est: %i  ===========", somme);
                 
                 break;
             
