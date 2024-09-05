@@ -3,134 +3,167 @@
 #include <string.h>
 
 
+struct books {
+    char titles[1000];
+    char auteurs[1000];
+    int prix;
+    int quantity;
+};
 
-    struct books{
-        char titles[1000];
-        char auteurs[1000];
-        int prixs;
-        int quantity;
-    };
-    
-int counter=0;
+int counter = 0;
 
+int main() {
+    struct books book[1000];
+    int stop = 0;
 
-int main(){
-char rep;
-
-        int stop = 1;
-        struct books book[1000];
-do
-{
-        printf("\nAjouter un Livre au Stock entrer 1 \n");
-        printf("Afficher Tous les Livres Disponibles entrer 2 \n");
-        printf("Rechercher un livre par son titre. 3 \n");
-        printf("Supprimer un Livre du Stock entrer 4 \n");
-        printf("Afficher le Nombre Total de Livres en Stock entrer 5 \n");
-        printf("\nGet Out from the program 0 \n");
-
+    do {
+        printf("======= Ajouter un Livre au Stock '1' \n");
+        printf("======= Afficher Tous les Livres Disponibles '2' \n");
+        printf("======= Rechercher un livre par son titre '3' \n");
+        printf("======= Supprimer un Livre du Stock entrer '4' \n");
+        printf("======= Afficher le Nombre Total de Livres en Stock '5' \n");
+        printf("======= Modifier les informations du livre '6' \n");
+        printf("======= Get Out from the program 0 \n");
 
         int answer;
-        printf("Votre choix est: ");
+        printf("\nVotre choix est: ");
         scanf("%i", &answer);
+        getchar();
 
-        char title[100];
-        char auteur[100];
-        int prix;
-        int stock;
-        char search[100];
+        char chercher[100];
+        int stop_chercher = 0;
         int somme = 0;
-        int test = 0;
-        switch (answer){
+
+
+
+        switch (answer) {
             case 1:
-                printf("Entrer le titre du livre: ");
-                scanf("%s", &title);
-                strcpy(book[counter].titles, title);
+            system("cls");
+                    printf("\n======= Titre de livre: ");
+                    fgets( book[counter].titles, sizeof(book[counter].titles), stdin);
 
-                printf("Entrer le nom de l auteur: ");
-                scanf("%s", &auteur);
-                strcpy(book[counter].auteurs, auteur);
+                    printf("======= Auteur de livre: ");
+                    fgets( book[counter].auteurs, sizeof(book[counter].auteurs), stdin);
 
-                printf("Entrer le prix du livre: ");
-                scanf("%i", &prix);
-                book[counter].prixs = prix;
+                    printf(" ======= Prix du livre: ");
+                    scanf("%d", &book[counter].prix);
+                    
+                    printf(" ======= Quantite du livre: ");
+                    scanf("%d", &book[counter].quantity);
+                    counter++;
 
-                printf("Entrer le stock du livre: ");
-                scanf("%i", &stock);
-                book[counter].quantity = stock;
-                counter++;
-                printf("\n ========= Votre livre a été ajouté avec succès ========== \n");
+                    printf("\n ========= Votre livre a ete ajoute avec succes ========== \n \n");
                 break;
+
             case 2:
-                for (int i = 0; i < counter; i++){
-                    printf("\n Affichage de livre: \n");
-                    printf("%i livre c'est %s l auteur est %s et son prix est %i il y a %i en stock.\n", i +1, book[i].titles, book[i].auteurs, book[i].prixs, book[i].quantity);
+                    for (int i = 0; i < counter; i++){
+                    printf("\n===== livre %d: \n \n",i +1);
+                    printf("=== Titre: %s ", book[i].titles);
+                    printf("=== Auteur: %s ", book[i].auteurs);
+                    printf("=== prix: %d \n", book[i].prix);
+                    printf("=== stock: %d \n \n", book[i].quantity);
+                    
                 }
+
+                
                 break;
-            
             case 3:
-
-                printf("Cherchez le livre que vous voulez: ");
-                scanf("%99s", &search);
-                for (int i = 0; i < counter; i++){
-                    if(strcmp(book[i].titles, search) == 0){
-                        printf("le livre c'est %s l auteur est %s et son prix est %i il y a %i en stock.", book[i].titles, book[i].auteurs, book[i].prixs, book[i].quantity);
-                        test = 1;
-
+            system("cls");
+                    printf("Enter le titre de livre: ");
+                    fgets(chercher, sizeof(chercher), stdin);
+                    for (int i = 0; i < counter; i++)
+                    {
+                        if(strcmp(book[i].titles, chercher) == 0){
+                            printf("\n===== le livre est: \n \n");
+                            printf("=== Titre: %s ", book[i].titles);
+                            printf("=== Auteur: %s ", book[i].auteurs);
+                            printf("=== prix: %d \n", book[i].prix);
+                            printf("=== stock: %d \n \n", book[i].quantity);
+                            stop_chercher = 1;
+                        }
                     }
-                }if(test == 0){
-                    printf("Your search doesn't exict...");
-                }
+                    if(stop_chercher == 0){
+                        printf("\nYour search doesn't exict...\n");
+                    }                 
                 
                 break;
+
                 case 4:
-
-                printf("Cherchez le livre que vous voulez supprime: ");
-                scanf("%99s", &search);
-                for (int i = 0; i < counter; i++){
-                    if(strcmp(book[i].titles, search) == 0){
-                         strcpy(book[i].titles, "");
-                         strcpy(book[i].titles, "");
-                        book[i].prixs = 0;
-                        book[i].quantity = 0;
-                        counter = counter -1;
-                        test = 1;
-
+                system("cls");
+                    printf("Entrez le titre du livre à supprimer: ");
+                    fgets(chercher, sizeof(chercher), stdin);
+                    for (int i = 0; i < counter; i++)
+                    {
+                        if(strcmp(book[i].titles, chercher) == 0){
+                            strcpy( book[i].titles, book[i + 1].titles);
+                            strcpy( book[i].auteurs, book[i + 1].auteurs);
+                            book[i].prix = book[i + 1].prix;
+                            book[i].quantity = book[i + 1].quantity;
+                            counter--;
+                            printf("\n ========= Votre livre a ete supprimer avec succes ========== \n \n");
+                        }
                     }
-                }
-                if (test == 0)
-                {
-                    printf("Ce livre n'est pas dans le tableau");
-                }
-                
+                    if(stop_chercher == 0){
+                        printf("\nYour search doesn't exict...\n");
+                    }   
                 
                 break;
-            
-            
-                case 5:
 
+                case 5:
                     
                     for (int i = 0; i < counter; i++){
-                        somme = somme + book[i].quantity;
+                        printf("\n===== livre %d: \n \n",i +1);
+                        printf("=== Titre: %s ", book[i].titles);
+                        printf("=== Auteur: %s ", book[i].auteurs);
+                        printf("=== prix: %d \n", book[i].prix);
+                        printf("=== stock: %d \n \n", book[i].quantity);
+
+                        somme += book[i].quantity;
                     }
-                    printf("========== La somme totale de stock est: %i  ===========", somme);
+                    
+                    printf("\n ========= La somme de stock du livre est: %i ========== \n \n",somme);
+                break;
+
+                case 6:
+                system("cls");
+                    printf("Entrez le titre du livre que vous souhaitez modifier: ");
+                    fgets(chercher, sizeof(chercher), stdin);
+
+                    
+
+                    for (int i = 0; i < counter; i++)
+                    {
+                        if(strcmp(book[i].titles, chercher) == 0){
+                            printf("\n======= Titre de livre: ");
+                            fgets( book[i].titles, sizeof(book[i].titles), stdin);
+
+                            printf("======= Auteur de livre: ");
+                            fgets( book[i].auteurs, sizeof(book[i].auteurs), stdin);
+
+                            printf(" ======= Prix du livre: ");
+                            scanf("%d", &book[i].prix);
+                            
+                            printf(" ======= Quantite du livre: ");
+                            scanf("%d", &book[i].quantity);
+
+                            printf("\n ========= Votre livre a ete modifier avec succes ========== \n \n");
+
+                            stop_chercher = 1;
+                                }
+                    }
+                    if(stop_chercher == 0){
+                        printf("\nYour search doesn't exict...\n");
+                    }   
                 
                 break;
+                
             
             default:
-            stop = 0;
+            printf("\n====== MERCI POUR UTILISE LE PROGRAMME... =======\n");
+                stop = 1;
                 break;
         }
-} while (stop != 0);
+    } while (stop == 0);
 
-    
-    
-
-
-return 0;
-}
-    
-    
-
-
-return 0;
+    return 0;
 }
